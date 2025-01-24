@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_sizer/flutter_sizer.dart';
 import 'package:lottie/lottie.dart';
 import 'package:quick_req/core/themes/standard_color.dart';
+import 'package:quick_req/utils/sizers_helpers.dart';
 import '../../../core/localizations/app_localizations.dart';
 import '../../../data/onboard_data.dart';
 import '../../../widget/buttons/large_btn.dart';
 import '../../../widget/buttons/small_btn.dart';
 import '../../../widget/navigation/navigation.dart';
-import '../../authentification/login_screen.dart';
+import '../../authentification/Screens/login_screen.dart';
 
 class Onboard extends ConsumerStatefulWidget {
   const Onboard({super.key});
@@ -28,7 +30,7 @@ class OnboardState extends ConsumerState<Onboard> {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding:EdgeInsets.all(8.dp),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -78,7 +80,7 @@ class OnboardState extends ConsumerState<Onboard> {
                     (index) => IndicatorDot(isActive: index == _currentPage),
               ),
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: getHeight(20, context)),
           ],
         ),
       ),
@@ -97,13 +99,13 @@ class OnboardPage extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Lottie.asset(image, height: 250, fit: BoxFit.cover),
-        const SizedBox(height: 20),
+        Lottie.asset(image, height: getHeight(250, context), fit: BoxFit.cover),
+        SizedBox(height: getHeight(20, context)),
         Center(
           child: Text(
             AppLocalizations.of(context)!.translate(text)!,
             style: TextStyle(
-              fontSize: 20,
+              fontSize:20.dp,
               color: Theme.of(context).colorScheme.onSurface,
               fontWeight: FontWeight.w600,
             ),
@@ -123,12 +125,12 @@ class IndicatorDot extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 5),
+      margin: EdgeInsets.symmetric(horizontal: 5.dp),
       height: 10,
-      width: isActive ? 20 : 10,
+      width: isActive ? getHeight(20, context) :getWidth(10, context),
       decoration: BoxDecoration(
         color: isActive ? Theme.of(context).primaryColor : StandardColor.greyColor,
-        borderRadius: BorderRadius.circular(5),
+        borderRadius: BorderRadius.circular(5.dp),
       ),
     );
   }

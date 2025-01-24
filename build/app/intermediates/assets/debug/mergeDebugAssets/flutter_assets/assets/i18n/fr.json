@@ -7,5 +7,25 @@
   "please_login": "Veuillez entrer vos informations pour vous connecter",
   "matricule": "Matricule",
   "or_continue_with": "ou continuez avec",
-  "login_now": "Connexion maintenant"
+  "login_now": "Connexion maintenant",
+  "request_deadlines": "Échéances de requêtes",
+  "request_tracking": "Suivie des requetes",
+  "request_creation": "Creation de requetes",
+  "absence_of_grades": "Absence de notes",
+  "grade_error": "Erreur de note",
+  "exemption_request_for_evaluation": "Demande d'exemption pour évaluation",
+  "title": "Intitulé",
+  "write_your_title": "Écrivez votre intitulé",
+  "content": "Contenu",
+  "submit": "Soumettre",
+  "object": "Objet",
+  "click_to_select_your_object": "Cliquez pour sélectionner votre objet",
+  "attachments": "Pièces jointes",
+  "choose_file": "Choisir un fichier",
+  "no_file_chosen": "Aucun fichier choisi",
+  "email": "Adresse e-mail",
+  "password": "Mot de passe",
+  "email_invalid": "Email invalid",
+  "handwritten_piece": "Piece Jointes"
+
 }
