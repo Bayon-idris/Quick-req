@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';  // Import nécessaire
+import 'package:shared_preferences/shared_preferences.dart';
 import '../features/authentification/UserModel.dart';
 
 class ApiService {
@@ -13,6 +13,7 @@ class ApiService {
     final url = Uri.parse('$baseUrl/login/');
 
     try {
+      print("Tentative d'authentification avec l'email : $email");
       final response = await http.post(
         url,
         headers: {
@@ -27,11 +28,17 @@ class ApiService {
       final responseData = jsonDecode(response.body);
 
       if (response.statusCode == 200) {
-        if (responseData.containsKey('data')) {
-          final token = responseData['data']['token'];
+        if (responseData.containsKey('token')) {
+          final token = responseData['token'];
           print('Token de connexion : $token');
           await _saveToken(token);
-          final user = User.fromJson(responseData['data']['user']);
+          print('Token sauvegardé : $token');
+
+          // Vérifiez si le token est bien enregistré
+          final savedToken = await getToken();
+          print('Token récupéré après sauvegarde : $savedToken');
+
+          final user = User.fromJson(responseData['user']);
           return {
             'success': true,
             'user': user,
@@ -65,16 +72,15 @@ class ApiService {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getString('auth_token');
   }
-
   Future<Map<String, dynamic>> submitRequest({
-    required String title, // Ce sera le titre de la demande
+    required String title,
     required String content,
-    required String? filePath, // Fichier joint
-    required String? handwrittenFilePath, // Pièce manuscrite
-    required String requestPatternId, // ID numérique de l'UE
+    required String? filePath,
+    required String? handwrittenFilePath,
+    required String requestPatternId,
   }) async {
     final url = Uri.parse('$baseUrl/request/');
-    final token = await getToken(); // Récupérer le token
+    final token = await getToken();
     print('Token récupéré : $token');
 
     if (token == null) {
@@ -88,9 +94,9 @@ class ApiService {
     try {
       final request = http.MultipartRequest('POST', url)
         ..headers['Authorization'] = 'Bearer $token'
-        ..fields['title'] = content // Utilisez le contenu comme titre
-        ..fields['requestPatternId'] = requestPatternId // ID numérique de l'UE
-        ..fields['content'] = title; // Utilisez le titre comme contenu
+        ..fields['title'] = content
+        ..fields['requestPatternId'] = requestPatternId
+        ..fields['content'] = title;
 
       if (filePath != null) {
         request.files.add(await http.MultipartFile.fromPath('attachment', filePath));
@@ -104,7 +110,6 @@ class ApiService {
       final streamedResponse = await request.send();
       final response = await http.Response.fromStream(streamedResponse);
 
-      // Afficher le corps de la réponse
       print('Corps de la réponse : ${response.body}');
 
       if (response.statusCode != 200) {
@@ -140,14 +145,13 @@ class ApiService {
 
 
   Future<Map<String, dynamic>> getStudentRequests(String? studentId) async {
-    // Utilisez un ID fixe si l'ID d'étudiant est null
     if (studentId == null) {
       studentId = '1'; // ID fixe
       print('Aucun ID d\'étudiant trouvé, utilisation de l\'ID fixe : $studentId');
     }
 
     final url = Uri.parse('$baseUrl/student/$studentId/requests');
-    final token = await getToken(); // Récupérer le token
+    final token = await getToken();
 
     if (token == null) {
       return {

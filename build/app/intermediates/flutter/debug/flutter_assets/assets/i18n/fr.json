@@ -26,6 +26,7 @@
   "email": "Adresse e-mail",
   "password": "Mot de passe",
   "email_invalid": "Email invalid",
-  "handwritten_piece": "Piece Jointes"
+  "handwritten_piece": "Piece Jointes",
+  "academic_request": "Monsieur (ou Madame),\n\nJ'ai l'honneur de venir très respectueusement auprès de votre haute bienveillance solliciter votre soutien dans le cadre de ma démarche académique.\n\nEn effet, je suis étudiant(e) en [nom de votre filière ou programme d'études] et je me permets de solliciter votre bienveillance pour [expliquer brièvement la nature de votre demande, que ce soit une demande d'information, d'assistance, ou autre].\n\nDans l'attente d'une suite favorable, veuillez agréer, Monsieur (ou Madame), mes expressions les plus chaleureuses !"
 
 }

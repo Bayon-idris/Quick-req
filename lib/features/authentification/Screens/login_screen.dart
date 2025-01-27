@@ -39,20 +39,23 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Vous êtes déjà connecté.')),
       );
+
+      // Optionnel : Redirigez vers la page d'accueil ou affichez le token
+      navigateToNextPage(context, QuickReqHome());
       return;
     }
 
     final email = _emailController.text;
     final password = _passwordController.text;
 
-    print("Attempting to login with email: $email");
+    print("Tentative de connexion avec l'email : $email");
 
     final response = await apiService.loginUser(
       email: email,
       password: password,
     );
 
-    print("Login response: $response");
+    print("Réponse de la connexion : $response");
 
     if (response == null) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -72,9 +75,17 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
       setState(() {
         _user = User.fromJson(response['user']);
       });
+
+      // Récupérer le token maintenant que l'utilisateur est connecté
+      final tokenAfterLogin = await apiService.getToken();
+      print('Token récupéré après connexion : $tokenAfterLogin');
+
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Bienvenue ${_user!.name}!')),
       );
+
+      // Redirigez vers la page d'accueil
+      navigateToNextPage(context, QuickReqHome());
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Connexion : ${response['message']}')),

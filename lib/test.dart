@@ -88,11 +88,11 @@ class StudentRequestsState extends ConsumerState<StudentRequests> {
             scrollDirection: Axis.horizontal,
             child: Container(
               decoration: BoxDecoration(
-                border: Border.all(color: Colors.black), // Bordure noire autour du tableau
+                border: Border.all(color: Colors.black),
               ),
               child: DataTable(
                 columns: [
-                  DataColumn(label: Text('Unité')),
+                  DataColumn(label: Text('Code de la requete')),
                   DataColumn(label: Text('Motif')),
                   DataColumn(label: Text('État')),
                   DataColumn(label: Text('Date')),

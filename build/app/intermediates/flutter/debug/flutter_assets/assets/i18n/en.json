@@ -26,5 +26,6 @@
   "email": "Mail Address",
   "password": "Password",
   "email_invalid": "Invalid Mail",
-  "handwritten_piece": "handwritten Piece"
+  "handwritten_piece": "handwritten Piece",
+  "academic_request": "Dear Sir (or Madam),\n\nI have the honor to respectfully request your support in the context of my academic endeavor.\n\nIndeed, I am a student in [name of your field or study program] and I would like to request your kind assistance for [briefly explain the nature of your request, whether it's a request for information, assistance, or other].\n\nAwaiting a favorable reply, please accept, Sir (or Madam), my warmest regards!"
 }
